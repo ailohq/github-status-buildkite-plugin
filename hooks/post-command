@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -euo pipefail
+
+USERNAME=$BUILDKITE_PLUGIN_GITHUB_STATUS_USERNAME
+TOKEN=$BUILDKITE_PLUGIN_GITHUB_STATUS_TOKEN
+STATE=success
+TARGET_URL=${BUILDKITE_PLUGIN_GITHUB_STATUS_TARGET_URL:-""}
+DESCRIPTION=${BUILDKITE_PLUGIN_GITHUB_STATUS_DESCRIPTION:-""}
+CONTEXT=$BUILDKITE_PLUGIN_GITHUB_STATUS_CONTEXT
+
+curl \
+  -X POST \
+  -u $USERNAME:$TOKEN \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/ailohq/ailo-admin/statuses/$BUILDKITE_COMMIT \
+  -d "{\
+    \"state\":\"$STATE\",\
+    \"target_url\":\"$TARGET_URL\",\
+    \"description\":\"$DESCRIPTION\",\
+    \"context\":\"$CONTEXT\"\
+  }"
