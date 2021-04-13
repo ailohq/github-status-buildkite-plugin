@@ -37,3 +37,7 @@ To run the tests:
 ```shell
 docker-compose run --rm -e GITHUB_USERNAME=trunkbot -e GITHUB_TOKEN=abc123 tests
 ```
+
+## Releasing
+
+Bump the version in README example and publish it as a git tag.
