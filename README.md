@@ -10,7 +10,7 @@ Add the following to your `pipeline.yml`:
 steps:
   - command: echo 'Deploy preview created'
     plugins:
-      - ailohq/github-status#v1.0.1:
+      - ailohq/github-status#v1.0.2:
           username-env: GITHUB_USERNAME # optional
           token-env: GITHUB_TOKEN # optional
           target_url: https://ailo.io # optional

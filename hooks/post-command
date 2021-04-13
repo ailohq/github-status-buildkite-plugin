@@ -4,13 +4,13 @@ set -euo pipefail
 
 USERNAME=$(printenv ${BUILDKITE_PLUGIN_GITHUB_STATUS_USERNAME_ENV:-"GITHUB_USERNAME"})
 TOKEN=$(printenv ${BUILDKITE_PLUGIN_GITHUB_STATUS_TOKEN_ENV:-"GITHUB_TOKEN"})
-STATE=success
+REPO_ORG=$(basename $(dirname $BUILDKITE_REPO) | sed 's/git@github.com://')
+REPO_NAME=$(basename $BUILDKITE_REPO .git)
+
+STATE=$(if [[ $BUILDKITE_COMMAND_EXIT_STATUS == "0" ]]; then echo success; else echo failure; fi)
 TARGET_URL=${BUILDKITE_PLUGIN_GITHUB_STATUS_TARGET_URL:-""}
 DESCRIPTION=${BUILDKITE_PLUGIN_GITHUB_STATUS_DESCRIPTION:-""}
 CONTEXT=${BUILDKITE_PLUGIN_GITHUB_STATUS_CONTEXT:-""}
-
-REPO_NAME=$(basename $BUILDKITE_REPO .git)
-REPO_ORG=$(basename $(dirname $BUILDKITE_REPO) | sed 's/git@github.com://')
 
 curl \
   -X POST \
