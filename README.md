@@ -11,16 +11,18 @@ steps:
   - command: echo 'Deploy preview created'
     plugins:
       - ailohq/github-status#v1.0.0:
-          username: trunkbot
-          token: abc123
-          target_url: https://ailo.io
-          context: deploy-preview
+          username-env: GITHUB_USERNAME # optional
+          token-env: GITHUB_TOKEN # optional
+          target_url: https://ailo.io # optional
+          description: Deploy preview # optional
+          context: deploy-preview # optional (recommended though)
 ```
 
 ## Configuration
 
-- `username`, `token` - username and a personal access token to the user having access to use GitHub Status API
-- `description`, `target_url`, `context` - see https://docs.github.com/en/rest/reference/repos#create-a-commit-status
+- `username-env`, `token-env` - names of env variables containing the username and personal access token to the user having access to use GitHub Status API. By default set to `GITHUB_USERNAME` and `GITHUB_TOKEN`.
+
+- `description`, `target_url`, `context` - see https://docs.github.com/en/rest/reference/repos#create-a-commit-status . By default empty.
 
 ## Developing
 
@@ -33,5 +35,5 @@ docker-compose run --rm lint
 To run the tests:
 
 ```shell
-docker-compose run --rm -e BUILDKITE_PLUGIN_GITHUB_STATUS_USERNAME=trunkbot -e BUILDKITE_PLUGIN_GITHUB_STATUS_TOKEN=abc123 tests
+docker-compose run --rm -e GITHUB_USERNAME=trunkbot -e GITHUB_TOKEN=abc123 tests
 ```

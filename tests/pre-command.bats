@@ -10,7 +10,7 @@ load '/usr/local/lib/bats/load.bash'
   export BUILDKITE_REPO=git@github.com:ailohq/github-status-buildkite-plugin.git
   export BUILDKITE_COMMIT=104b8f03cfd1f61b6fd7cf913a1d4542d35aff21
 
-  run "$PWD/hooks/post-command"
+  run "$PWD/hooks/pre-command"
 
   assert_success
 }
